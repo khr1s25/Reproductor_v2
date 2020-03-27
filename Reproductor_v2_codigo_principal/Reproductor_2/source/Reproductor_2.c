@@ -29,7 +29,7 @@
  */
  
 /**
- * @file    Reproductor_v2.c
+ * @file    Reproductor_2.c
  * @brief   Application entry point.
  */
 #include <stdio.h>
@@ -39,13 +39,95 @@
 #include "clock_config.h"
 #include "MKL25Z4.h"
 #include "fsl_debug_console.h"
+#include "fsl_gpio.h"
+
+
 /* TODO: insert other include files here. */
 
 /* TODO: insert other definitions and declarations here. */
+typedef enum {
+	DISABLE,
+	COUNT_ENABLE,
+	ENABLE,
+	COUNT_DIS,
+	NUM_OF_STATES
+}MACH_STATES;
+
+#define BOARD_LED_GPIO BOARD_LED_RED_GPIO
+#define BOARD_LED_GPIO_PIN_0 8u
+
+MACH_STATES curr_state = DISABLE;
+MACH_STATES next_state = DISABLE;
+
+int32_t button;
+
 
 /*
  * @brief   Application entry point.
  */
+void my_state_machine(MACH_STATES curr_state, int32_t button){
+	int contador = 0;
+	switch(curr_state){
+	case DISABLE:
+		if(button==1){
+			contador = 0;
+			next_state = COUNT_ENABLE;
+			//output = DISABLE;
+			curr_state = next_state;
+		}
+		break;
+
+	case COUNT_ENABLE:
+		if(button==1 && contador < 4){
+			contador = contador +1;
+			//output = DISABLE;
+			next_state = COUNT_ENABLE;
+			curr_state = next_state;
+		}
+		else if(button==1 && contador >=4){
+			//output = ENABLE;
+			next_state = ENABLE;
+			curr_state = next_state;
+		}
+		else {
+			contador = 0;
+			//output = DISABLE;
+			next_state = DISABLE;
+			curr_state = next_state;
+		}
+		break;
+
+	case ENABLE:
+		if(button==0){
+			contador = 0;
+			//output = ENABLE;
+			next_state = COUNT_DIS;
+			curr_state = next_state;
+		}
+		break;
+
+	case COUNT_DIS:
+		if(button==1){
+			contador = 0;
+			//output = ENABLE;
+			next_state = ENABLE;
+			curr_state = next_state;
+		}
+		else if(button==0 && contador < 3){
+			contador = contador + 1;
+			//output = ENABLE;
+			next_state = COUNT_DIS;
+			curr_state = next_state;
+		}
+		else{
+			//output = DISABLE;
+			next_state = DISABLE;
+			curr_state = next_state;
+		}
+		break;
+	}
+}
+
 int main(void) {
 
   	/* Init board hardware. */
@@ -61,6 +143,8 @@ int main(void) {
     volatile static int i = 0 ;
     /* Enter an infinite loop, just incrementing a counter. */
     while(1) {
+    	button = GPIO_ReadPinInput(GPIOB, BOARD_LED_GPIO_PIN_0);
+    	my_state_machine(curr_state, button);
         i++ ;
         /* 'Dummy' NOP to allow source level single stepping of
             tight while() loop */
