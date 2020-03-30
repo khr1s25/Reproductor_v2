@@ -11,4 +11,6 @@
 extern void RUN_PIT();
 extern void Inicializar_pit();
 
+unsigned char pit_flag = FALSE;
+
 #endif /* INTERRUPT_H_ */

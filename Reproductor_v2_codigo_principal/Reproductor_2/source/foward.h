@@ -8,6 +8,6 @@
 #ifndef FOWARD_H_
 #define FOWARD_H_
 
-extern void CANCION();
+extern void F_NEXT();
 
 #endif /* FOWARD_H_ */

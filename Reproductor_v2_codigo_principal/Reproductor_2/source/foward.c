@@ -22,7 +22,7 @@ PLAYLIST curr_song = song_1;
 PLAYLIST next_song = song_1;
 
 
-void CANCION(int32_t button, int time_pressed){
+void F_NEXT(int32_t button, int time_pressed){
 	///PLAYLIST canciones;
 	CLOCK_EnableClock(kCLOCK_PortD);
 
@@ -40,14 +40,14 @@ void CANCION(int32_t button, int time_pressed){
 	GPIO_PinInit(GPIOD, LED_2, &pin2);
 
 	if(time_pressed > 50){
-		///implementar leds foward
+		my_foward();
 	}
 	else{
-	my_foward(curr_song, button);
+		my_next(curr_song, button);
 	}
 }
 
-void my_foward(PLAYLIST curr_song, int32_t button){
+void my_next(PLAYLIST curr_song, int32_t button){
 	switch(curr_song){
 	case song_1:
 		if(button==1){
@@ -93,4 +93,8 @@ void my_foward(PLAYLIST curr_song, int32_t button){
 		}
 		break;
 	}
+}
+
+void my_foward(){
+	/*codigo para acelerar la cancion*/
 }

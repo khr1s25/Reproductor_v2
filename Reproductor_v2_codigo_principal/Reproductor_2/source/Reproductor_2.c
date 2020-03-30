@@ -41,8 +41,11 @@
 #include "fsl_debug_console.h"
 /* TODO: insert other include files here. */
 #include "foward.h"
+#include "interrupt.h"
 /* TODO: insert other definitions and declarations here. */
 
+#define FALSE 0
+#define TRUE 1
 /*
  * @brief   Application entry point.
  */
@@ -55,10 +58,23 @@ int main(void) {
   	/* Init FSL debug console. */
     BOARD_InitDebugConsole();
 
+    Inicializar_pit();
+
     PRINTF("Hello World\n");
 
     for(;;){
-    	CANCION();
+    	if(pit_flag = TRUE){
+    		/* FALTA INICIALIZAR BOTONES Y RECIBIRLOS*/
+
+
+    		DB1 = Debouncer(B1);
+    		DB2 = Debouncer(B2);
+    		DB3 = Debouncer(B3);
+
+    		/*PLAY/PAUSE/STOP = player(DB1);*/
+    		F_NEXT(B2, DB2);
+    		/*B_BACK(B3, DB3); */
+    	}
     }
 
     /* Force the counter to be placed into memory. */
