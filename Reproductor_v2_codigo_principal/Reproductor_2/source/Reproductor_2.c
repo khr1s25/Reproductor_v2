@@ -46,6 +46,10 @@
 
 #define FALSE 0
 #define TRUE 1
+#define B_1 8u
+#define B_2 9u
+#define B_3 10u
+
 /*
  * @brief   Application entry point.
  */
@@ -65,6 +69,9 @@ int main(void) {
     for(;;){
     	if(pit_flag = TRUE){
     		/* FALTA INICIALIZAR BOTONES Y RECIBIRLOS*/
+    		B1 = GPIO_ReadPinInput(GPIOB,B_1); /*Play - pause- Stop*/
+    		B2 = GPIO_ReadPinInput(GPIOB,B_2); /*Prev - BFW*/
+    		B3 = GPIO_ReadPinInput(GPIOB,B_3);
 
 
     		DB1 = Debouncer(B1);
@@ -73,7 +80,7 @@ int main(void) {
 
     		/*PLAY/PAUSE/STOP = player(DB1);*/
     		F_NEXT(B2, DB2);
-    		/*B_BACK(B3, DB3); */
+    		/*B_BACK(B3, DB3);  */
     	}
     }
 
