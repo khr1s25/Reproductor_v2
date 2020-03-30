@@ -54,7 +54,7 @@ typedef enum {
 	DEBOUNCING
 }MACH_STATES;
 
-#define TIME_PRESSED	50u
+#define TIME_MAX	100u
 #define INIT_STATE	0u
 
 
@@ -66,7 +66,9 @@ MACH_STATES next_state = DISABLE;
 /*
  * @brief   Application entry point.
  */
-void Debouncer(int32_t button2){
+int Debouncer(int32_t button2){
+
+	int TIME_PRESSED = 0;
 	int contador = 0;
 	switch(curr_state){
 	case DISABLE:
@@ -79,13 +81,14 @@ void Debouncer(int32_t button2){
 		break;
 
 	case DEBOUNCE:
-		if(button2==1 && contador < TIME_PRESSED){
+		if(button2==1 && contador < TIME_MAX){
 			contador = contador +1;
+			TIME_PRESSED = TIME_PRESSED + 1;
 			//output = DISABLE;
 			next_state = DEBOUNCE;
 			curr_state = next_state;
 		}
-		else if(button2=1 && contador >=TIME_PRESSED){
+		else if(button2=1 && contador >=TIME_MAX){
 			//output = ENABLE;
 			next_state = ENABLE;
 			curr_state = next_state;
@@ -126,5 +129,6 @@ void Debouncer(int32_t button2){
 		}
 		break;
 	}
+	return TIME_PRESSED;
 }
 

@@ -15,20 +15,17 @@ typedef enum {
 	song_4
 }PLAYLIST;
 
-#define Board_Button_Foward 9
 #define LED_1	2
 #define LED_2	3
 
 PLAYLIST curr_song = song_1;
 PLAYLIST next_song = song_1;
 
-int32_t button;
 
-
-void CANCION(){
+void CANCION(int32_t button, int time_pressed){
 	///PLAYLIST canciones;
 	CLOCK_EnableClock(kCLOCK_PortD);
-	button = GPIO_ReadPinInput(GPIOB, Board_Button_Foward);
+
 
 	gpio_pin_config_t pin1;
 	gpio_pin_config_t pin2;
@@ -42,7 +39,12 @@ void CANCION(){
 	GPIO_PinInit(GPIOD, LED_1, &pin1);
 	GPIO_PinInit(GPIOD, LED_2, &pin2);
 
+	if(time_pressed > 50){
+		///implementar leds foward
+	}
+	else{
 	my_foward(curr_song, button);
+	}
 }
 
 void my_foward(PLAYLIST curr_song, int32_t button){
