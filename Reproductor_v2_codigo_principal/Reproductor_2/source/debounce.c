@@ -43,49 +43,49 @@
 
 /* TODO: insert other include files here. */
 
+#include "debounce.h"
 
 
 /* TODO: insert other definitions and declarations here. */
 typedef enum {
 	DISABLE,
-	COUNT_ENABLE,
 	ENABLE,
-	COUNT_DIS,
-	NUM_OF_STATES
+	DEBOUNCE,
+	DEBOUNCING
 }MACH_STATES;
 
-#define BOARD_LED_GPIO BOARD_LED_RED_GPIO
-#define BOARD_LED_GPIO_PIN_0 8u
+#define TIME_PRESSED	50u
+#define INIT_STATE	0u
+
+
 
 MACH_STATES curr_state = DISABLE;
 MACH_STATES next_state = DISABLE;
-
-int32_t button2;
 
 
 /*
  * @brief   Application entry point.
  */
-void my_state_machine(MACH_STATES curr_state, int32_t button){
+void Debouncer(int32_t button2){
 	int contador = 0;
 	switch(curr_state){
 	case DISABLE:
 		if(button2==1){
 			contador = 0;
-			next_state = COUNT_ENABLE;
+			next_state = DEBOUNCE;
 			//output = DISABLE;
 			curr_state = next_state;
 		}
 		break;
 
-	case COUNT_ENABLE:
-		if(button2==1 && contador < 4){
+	case DEBOUNCE:
+		if(button2==1 && contador < TIME_PRESSED){
 			contador = contador +1;
 			//output = DISABLE;
-			next_state = COUNT_ENABLE;
+			next_state = DEBOUNCE;
 			curr_state = next_state;
 		}
-		else if(button2=1 && contador >=4){
+		else if(button2=1 && contador >=TIME_PRESSED){
 			//output = ENABLE;
 			next_state = ENABLE;
 			curr_state = next_state;
@@ -102,22 +102,21 @@ void my_state_machine(MACH_STATES curr_state, int32_t button){
 		if(button2==0){
 			contador = 0;
 			//output = ENABLE;
-			next_state = COUNT_DIS;
+			next_state = DEBOUNCING;
 			curr_state = next_state;
 		}
 		break;
 
-	case COUNT_DIS:
+	case DEBOUNCING:
 		if(button2==1){
-			contador = 0;
 			//output = ENABLE;
 			next_state = ENABLE;
 			curr_state = next_state;
 		}
-		else if(button==0 && contador < 3){
-			contador = contador + 1;
+		else if(button==0 && contador > INIT_STATE){
+			contador = contador - 1;
 			//output = ENABLE;
-			next_state = COUNT_DIS;
+			next_state = DEBOUNCING;
 			curr_state = next_state;
 		}
 		else{

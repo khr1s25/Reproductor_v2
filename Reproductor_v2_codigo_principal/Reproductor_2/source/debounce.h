@@ -8,7 +8,7 @@
 #ifndef DEBOUNCE_H_
 #define DEBOUNCE_H_
 
-#define BOUNCE_COUNTER_TIMER    50u
+extern void
 
 
 #endif /* DEBOUNCE_H_ */
