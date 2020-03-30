@@ -41,6 +41,7 @@ void F_NEXT(int32_t button, int time_pressed){
 
 	if(time_pressed > 50){
 		my_foward();
+		PIT_SetTimerPeriod(PIT, kPIT_Chnl_0, USEC_TO_COUNT(100000U, PIT_SOURCE_CLOCK));
 	}
 	else{
 		my_next(curr_song, button);
@@ -97,4 +98,5 @@ void my_next(PLAYLIST curr_song, int32_t button){
 
 void my_foward(){
 	/*codigo para acelerar la cancion*/
+	    PIT_SetTimerPeriod(PIT, kPIT_Chnl_0, USEC_TO_COUNT(100U, PIT_SOURCE_CLOCK));
 }
