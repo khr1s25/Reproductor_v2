@@ -37,11 +37,9 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#define BOARD_LED_GPIO BOARD_LED_RED_GPIO
-#define BOARD_LED_GPIO_PIN_0 8u
-#define BOARD_LED_GPIO_PIN_1 9u
-#define BOARD_LED_GPIO_PIN_2 10u
-#define BOARD_LED_GPIO_PIN_3 11u
+#define BOARD_LED_GPIO_PIN_0 2u
+#define BOARD_LED_GPIO_PIN_1 3u
+#define BOARD_LED_GPIO_PIN_2 4u
 
 
 /*******************************************************************************
@@ -74,36 +72,34 @@ void contador(int cont)
 	if(cont == 0)
 	    	{
 	    		delay();
-	    		GPIO_PinInit(BOARD_LED_RED_GPIO, BOARD_LED_GPIO_PIN_0, &led_config);
+	    		GPIO_PinInit(GPIOE, BOARD_LED_GPIO_PIN_0, &led_config);
 	    		printf("\r\n Led 1 \r\n");
 	    		cont++;
-	    	}else if (cont == 1)
+	    	}
+			else if (cont == 1)
 	    	{
 	    		delay();
-	    		GPIO_PinInit(BOARD_LED_RED_GPIO, BOARD_LED_GPIO_PIN_1, &led_config);
+	    		GPIO_PinInit(GPIOE, BOARD_LED_GPIO_PIN_1, &led_config);
 	    		printf("\r\n Led 2 \r\n");
 	    		cont++;
-	    	}else if (cont == 2)
+	    	}
+			else if (cont == 2)
 	    	{
 	    		delay();
-	    		GPIO_PinInit(BOARD_LED_RED_GPIO, BOARD_LED_GPIO_PIN_2, &led_config);
+	    		GPIO_PinInit(GPIOE, BOARD_LED_GPIO_PIN_2, &led_config);
 	    		printf("\r\n Led 3 \r\n");
 	    		cont++;
-	    	}else if (cont == 3)
+	    	}
+			else if (cont == 3)
 	    	{
 	    		delay();
-	    		GPIO_PinInit(BOARD_LED_RED_GPIO, BOARD_LED_GPIO_PIN_3, &led_config);
-	    		printf("\r\n Led 4 \r\n");
-	    		cont++;
-	    	}else if (cont == 4)
-	    	{
-	    		delay();
-	    		GPIO_TogglePinsOutput(BOARD_LED_RED_GPIO, 1u << BOARD_LED_GPIO_PIN_0);
-	    		GPIO_TogglePinsOutput(BOARD_LED_RED_GPIO, 1u << BOARD_LED_GPIO_PIN_1);
-	    		GPIO_TogglePinsOutput(BOARD_LED_RED_GPIO, 1u << BOARD_LED_GPIO_PIN_2);
-	    	    GPIO_TogglePinsOutput(BOARD_LED_RED_GPIO, 1u << BOARD_LED_GPIO_PIN_3);
+	    		GPIO_TogglePinsOutput(GPIOE, 1u << BOARD_LED_GPIO_PIN_0);
+	    		GPIO_TogglePinsOutput(GPIOE, 1u << BOARD_LED_GPIO_PIN_1);
+	    		GPIO_TogglePinsOutput(GPIOE, 1u << BOARD_LED_GPIO_PIN_2);
 	    		cont = 0;
-	    	}else{
+	    	}
+			else
+			{
 
 	    		cont++;
 	    	}
