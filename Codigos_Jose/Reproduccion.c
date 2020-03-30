@@ -69,7 +69,7 @@ void delay(void)
     }
 }
 
-void contador()
+void contador(int cont)
 {
 	if(cont == 0)
 	    	{
@@ -110,69 +110,6 @@ void contador()
 	return;
 }
 
-void my_state_machine(){
-	int contador = 0;
-	switch(curr_state){
-	case DISABLE:
-		if(/*button high*/){
-			contador = 0;
-			next_state = COUNT_ENABLE;
-			output = DISABLE;
-			curr_state = next_state;
-		}
-		break;
-
-	case COUNT_ENABLE:
-		if(/*button high and contador < 4*/){
-			contador = contador +1;
-			output = DISABLE;
-			next_state = COUNT_ENABLE;
-			curr_state = next_state;
-		}
-		else if(/*button high and contador >=4*/){
-			output = ENABLE;
-			next_state = ENABLE;
-			curr_state = next_state;
-		}
-		else {
-			contador = 0;
-			output = DISABLE;
-			next_state = DISABLE;
-			curr_state = next_state;
-		}
-		break;
-
-	case ENABLE:
-		if(/*button low*/){
-			contador = 0;
-			output = ENABLE;
-			next_state = COUNT_DIS;
-			curr_state = next_state;
-		}
-		break;
-
-	case COUNT_DIS:
-		if(/*button high*/){
-			contador = 0;
-			output = ENABLE;
-			next_state = ENABLE;
-			curr_state = next_state;
-		}
-		else if(/*button low and contador < 3*/){
-			contador = contador + 1;
-			output = ENABLE;
-			next_state = COUNT_DIS;
-			curr_state = next_state;
-		}
-		else{
-			output = DISABLE;
-			next_state = DISABLE;
-			curr_state = next_state;
-		}
-		break;
-	}
-}
-
 /*!
  * @brief Main function
  */
@@ -196,7 +133,6 @@ int main(void)
 
     while (1)
     {
-
-
+		contador(icont);
     }
 }
