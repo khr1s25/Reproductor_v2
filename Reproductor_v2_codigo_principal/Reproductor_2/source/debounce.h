@@ -8,7 +8,7 @@
 #ifndef DEBOUNCE_H_
 #define DEBOUNCE_H_
 
-extern void
+extern void Debouncer();
 
 
 #endif /* DEBOUNCE_H_ */
