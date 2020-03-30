@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding= "UTF-8" ?>
-<configuration name="MKL25Z128xxx4" version="1.7" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.7 http://mcuxpresso.nxp.com/XSD/mex_configuration_1.7.xsd" uuid="ce3b11c2-ba4c-401c-a5ce-94d6b8e046fc" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.7" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<configuration name="MKL25Z128xxx4" version="1.7" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.7 http://mcuxpresso.nxp.com/XSD/mex_configuration_1.7.xsd" uuid="633ee49f-a8eb-4a8d-8131-204edeb7b7c9" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.7" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
    <common>
       <processor>MKL25Z128xxx4</processor>
       <package>MKL25Z128VLK4</package>
@@ -38,6 +38,11 @@
                         <data>true</data>
                      </feature>
                   </dependency>
+                  <dependency resourceType="Peripheral" resourceId="TPM1" description="Peripheral TPM1 is not initialized" problem_level="1" source="Pins:BOARD_InitPins">
+                     <feature name="initialized" evaluation="equal">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
                   <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins:BOARD_InitPins">
                      <feature name="enabled" evaluation="equal" configuration="core0">
                         <data>true</data>
@@ -52,9 +57,15 @@
                <pins>
                   <pin peripheral="UART0" signal="TX" pin_num="28" pin_signal="TSI0_CH3/PTA2/UART0_TX/TPM2_CH1"/>
                   <pin peripheral="UART0" signal="RX" pin_num="27" pin_signal="TSI0_CH2/PTA1/UART0_RX/TPM2_CH0"/>
+                  <pin peripheral="GPIOB" signal="GPIO, 9" pin_num="48" pin_signal="PTB9"/>
                   <pin peripheral="GPIOB" signal="GPIO, 8" pin_num="47" pin_signal="PTB8/EXTRG_IN"/>
-                  <pin peripheral="GPIOA" signal="GPIO, 0" pin_num="26" pin_signal="TSI0_CH1/PTA0/TPM0_CH5/SWD_CLK"/>
-                  <pin peripheral="GPIOB" signal="GPIO, 18" pin_num="53" pin_signal="TSI0_CH11/PTB18/TPM2_CH0"/>
+                  <pin peripheral="GPIOB" signal="GPIO, 10" pin_num="49" pin_signal="PTB10/SPI1_PCS0"/>
+                  <pin peripheral="GPIOE" signal="GPIO, 2" pin_num="3" pin_signal="PTE2/SPI1_SCK"/>
+                  <pin peripheral="GPIOE" signal="GPIO, 3" pin_num="4" pin_signal="PTE3/SPI1_MISO/SPI1_MOSI"/>
+                  <pin peripheral="GPIOE" signal="GPIO, 4" pin_num="5" pin_signal="PTE4/SPI1_PCS0"/>
+                  <pin peripheral="GPIOD" signal="GPIO, 0" pin_num="73" pin_signal="PTD0/SPI0_PCS0/TPM0_CH0"/>
+                  <pin peripheral="GPIOD" signal="GPIO, 2" pin_num="75" pin_signal="PTD2/SPI0_MOSI/UART2_RX/TPM0_CH2/SPI0_MISO"/>
+                  <pin peripheral="TPM1" signal="CH, 1" pin_num="33" pin_signal="PTA13/TPM1_CH1"/>
                </pins>
             </function>
          </functions_list>

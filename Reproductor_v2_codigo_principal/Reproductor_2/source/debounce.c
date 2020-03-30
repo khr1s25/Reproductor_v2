@@ -29,7 +29,7 @@
  */
  
 /**
- * @file    Reproductor_2.c
+ * @file    Maquina_estado.c
  * @brief   Application entry point.
  */
 #include <stdio.h>
@@ -39,36 +39,93 @@
 #include "clock_config.h"
 #include "MKL25Z4.h"
 #include "fsl_debug_console.h"
+#include "fsl_gpio.h"
+
 /* TODO: insert other include files here. */
-#include "foward.h"
+
+
+
 /* TODO: insert other definitions and declarations here. */
+typedef enum {
+	DISABLE,
+	COUNT_ENABLE,
+	ENABLE,
+	COUNT_DIS,
+	NUM_OF_STATES
+}MACH_STATES;
+
+#define BOARD_LED_GPIO BOARD_LED_RED_GPIO
+#define BOARD_LED_GPIO_PIN_0 8u
+
+MACH_STATES curr_state = DISABLE;
+MACH_STATES next_state = DISABLE;
+
+int32_t button2;
+
 
 /*
  * @brief   Application entry point.
  */
-int main(void) {
+void my_state_machine(MACH_STATES curr_state, int32_t button){
+	int contador = 0;
+	switch(curr_state){
+	case DISABLE:
+		if(button2==1){
+			contador = 0;
+			next_state = COUNT_ENABLE;
+			//output = DISABLE;
+			curr_state = next_state;
+		}
+		break;
 
-  	/* Init board hardware. */
-    BOARD_InitBootPins();
-    BOARD_InitBootClocks();
-    BOARD_InitBootPeripherals();
-  	/* Init FSL debug console. */
-    BOARD_InitDebugConsole();
+	case COUNT_ENABLE:
+		if(button2==1 && contador < 4){
+			contador = contador +1;
+			//output = DISABLE;
+			next_state = COUNT_ENABLE;
+			curr_state = next_state;
+		}
+		else if(button2=1 && contador >=4){
+			//output = ENABLE;
+			next_state = ENABLE;
+			curr_state = next_state;
+		}
+		else {
+			contador = 0;
+			//output = DISABLE;
+			next_state = DISABLE;
+			curr_state = next_state;
+		}
+		break;
 
-    PRINTF("Hello World\n");
+	case ENABLE:
+		if(button2==0){
+			contador = 0;
+			//output = ENABLE;
+			next_state = COUNT_DIS;
+			curr_state = next_state;
+		}
+		break;
 
-    for(;;){
-    	CANCION();
-    }
-
-    /* Force the counter to be placed into memory. */
-    volatile static int i = 0 ;
-    /* Enter an infinite loop, just incrementing a counter. */
-    while(1) {
-        i++ ;
-        /* 'Dummy' NOP to allow source level single stepping of
-            tight while() loop */
-        __asm volatile ("nop");
-    }
-    return 0 ;
+	case COUNT_DIS:
+		if(button2==1){
+			contador = 0;
+			//output = ENABLE;
+			next_state = ENABLE;
+			curr_state = next_state;
+		}
+		else if(button==0 && contador < 3){
+			contador = contador + 1;
+			//output = ENABLE;
+			next_state = COUNT_DIS;
+			curr_state = next_state;
+		}
+		else{
+			//output = DISABLE;
+			next_state = DISABLE;
+			curr_state = next_state;
+		}
+		break;
+	}
 }
+

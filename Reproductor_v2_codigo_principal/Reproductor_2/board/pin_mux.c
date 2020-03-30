@@ -40,9 +40,15 @@ BOARD_InitPins:
 - pin_list:
   - {pin_num: '28', peripheral: UART0, signal: TX, pin_signal: TSI0_CH3/PTA2/UART0_TX/TPM2_CH1}
   - {pin_num: '27', peripheral: UART0, signal: RX, pin_signal: TSI0_CH2/PTA1/UART0_RX/TPM2_CH0}
+  - {pin_num: '48', peripheral: GPIOB, signal: 'GPIO, 9', pin_signal: PTB9}
   - {pin_num: '47', peripheral: GPIOB, signal: 'GPIO, 8', pin_signal: PTB8/EXTRG_IN}
-  - {pin_num: '26', peripheral: GPIOA, signal: 'GPIO, 0', pin_signal: TSI0_CH1/PTA0/TPM0_CH5/SWD_CLK}
-  - {pin_num: '53', peripheral: GPIOB, signal: 'GPIO, 18', pin_signal: TSI0_CH11/PTB18/TPM2_CH0}
+  - {pin_num: '49', peripheral: GPIOB, signal: 'GPIO, 10', pin_signal: PTB10/SPI1_PCS0}
+  - {pin_num: '3', peripheral: GPIOE, signal: 'GPIO, 2', pin_signal: PTE2/SPI1_SCK}
+  - {pin_num: '4', peripheral: GPIOE, signal: 'GPIO, 3', pin_signal: PTE3/SPI1_MISO/SPI1_MOSI}
+  - {pin_num: '5', peripheral: GPIOE, signal: 'GPIO, 4', pin_signal: PTE4/SPI1_PCS0}
+  - {pin_num: '73', peripheral: GPIOD, signal: 'GPIO, 0', pin_signal: PTD0/SPI0_PCS0/TPM0_CH0}
+  - {pin_num: '75', peripheral: GPIOD, signal: 'GPIO, 2', pin_signal: PTD2/SPI0_MOSI/UART2_RX/TPM0_CH2/SPI0_MISO}
+  - {pin_num: '33', peripheral: TPM1, signal: 'CH, 1', pin_signal: PTA13/TPM1_CH1}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */
@@ -59,21 +65,43 @@ void BOARD_InitPins(void)
     CLOCK_EnableClock(kCLOCK_PortA);
     /* Port B Clock Gate Control: Clock enabled */
     CLOCK_EnableClock(kCLOCK_PortB);
-
-    /* PORTA0 (pin 26) is configured as PTA0 */
-    PORT_SetPinMux(PORTA, 0U, kPORT_MuxAsGpio);
+    /* Port D Clock Gate Control: Clock enabled */
+    CLOCK_EnableClock(kCLOCK_PortD);
+    /* Port E Clock Gate Control: Clock enabled */
+    CLOCK_EnableClock(kCLOCK_PortE);
 
     /* PORTA1 (pin 27) is configured as UART0_RX */
     PORT_SetPinMux(BOARD_INITPINS_DEBUG_UART_RX_PORT, BOARD_INITPINS_DEBUG_UART_RX_PIN, kPORT_MuxAlt2);
 
+    /* PORTA13 (pin 33) is configured as TPM1_CH1 */
+    PORT_SetPinMux(PORTA, 13U, kPORT_MuxAlt3);
+
     /* PORTA2 (pin 28) is configured as UART0_TX */
     PORT_SetPinMux(BOARD_INITPINS_DEBUG_UART_TX_PORT, BOARD_INITPINS_DEBUG_UART_TX_PIN, kPORT_MuxAlt2);
 
-    /* PORTB18 (pin 53) is configured as PTB18 */
-    PORT_SetPinMux(BOARD_INITPINS_LED_RED_PORT, BOARD_INITPINS_LED_RED_PIN, kPORT_MuxAsGpio);
+    /* PORTB10 (pin 49) is configured as PTB10 */
+    PORT_SetPinMux(PORTB, 10U, kPORT_MuxAsGpio);
 
     /* PORTB8 (pin 47) is configured as PTB8 */
     PORT_SetPinMux(PORTB, 8U, kPORT_MuxAsGpio);
+
+    /* PORTB9 (pin 48) is configured as PTB9 */
+    PORT_SetPinMux(PORTB, 9U, kPORT_MuxAsGpio);
+
+    /* PORTD0 (pin 73) is configured as PTD0 */
+    PORT_SetPinMux(PORTD, 0U, kPORT_MuxAsGpio);
+
+    /* PORTD2 (pin 75) is configured as PTD2 */
+    PORT_SetPinMux(PORTD, 2U, kPORT_MuxAsGpio);
+
+    /* PORTE2 (pin 3) is configured as PTE2 */
+    PORT_SetPinMux(PORTE, 2U, kPORT_MuxAsGpio);
+
+    /* PORTE3 (pin 4) is configured as PTE3 */
+    PORT_SetPinMux(PORTE, 3U, kPORT_MuxAsGpio);
+
+    /* PORTE4 (pin 5) is configured as PTE4 */
+    PORT_SetPinMux(PORTE, 4U, kPORT_MuxAsGpio);
 
     SIM->SOPT5 = ((SIM->SOPT5 &
                    /* Mask bits to zero which are setting */

@@ -40,14 +40,6 @@ void BOARD_InitBootPins(void);
 #define BOARD_INITPINS_DEBUG_UART_RX_PIN 1U     /*!<@brief PORTA pin index: 1 */
                                                 /* @} */
 
-/*! @name PORTB18 (number 53), D3[1]/LEDRGB_RED
-  @{ */
-#define BOARD_INITPINS_LED_RED_FGPIO FGPIOB /*!<@brief FGPIO device name: FGPIOB */
-#define BOARD_INITPINS_LED_RED_GPIO GPIOB /*!<@brief GPIO device name: GPIOB */
-#define BOARD_INITPINS_LED_RED_PORT PORTB /*!<@brief PORT device name: PORTB */
-#define BOARD_INITPINS_LED_RED_PIN 18U    /*!<@brief PORTB pin index: 18 */
-                                          /* @} */
-
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
  *
