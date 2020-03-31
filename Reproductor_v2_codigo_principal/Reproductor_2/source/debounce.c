@@ -58,20 +58,15 @@ typedef enum {
 #define INIT_STATE	0u
 
 
-
-MACH_STATES curr_state = DISABLE;
-MACH_STATES next_state = DISABLE;
-
-
 /*
  * @brief   Application entry point.
  */
-int Debouncer(int32_t curr_pressed){
+int Debouncer(int curr_pressed){
 
-	int32_t button2;
+	uint32_t button2;
 	int TIME_PRESSED = 0;
 	int contador = 0;
-	do{
+	while(curr_state != DISABLE && button2==0){
 	button2 = GPIO_ReadPinInput(GPIOB, curr_pressed);
 	switch(curr_state){
 	case DISABLE:
@@ -131,7 +126,7 @@ int Debouncer(int32_t curr_pressed){
 		}
 		break;
 	}
-	}while(curr_state != DISABLE && button2==1);
+	}
 	return TIME_PRESSED;
 }
 
