@@ -8,9 +8,10 @@
 #ifndef INTERRUPT_H_
 #define INTERRUPT_H_
 
-extern void RUN_PIT();
+#define FALSE 0
+#define TRUE 1
+
 extern void Inicializar_pit();
 
-unsigned char pit_flag = FALSE;
 
 #endif /* INTERRUPT_H_ */

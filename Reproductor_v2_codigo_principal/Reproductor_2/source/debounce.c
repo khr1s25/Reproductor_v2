@@ -116,7 +116,7 @@ int Debouncer(int32_t button2){
 			next_state = ENABLE;
 			curr_state = next_state;
 		}
-		else if(button==0 && contador > INIT_STATE){
+		else if(button2==0 && contador > INIT_STATE){
 			contador = contador - 1;
 			//output = ENABLE;
 			next_state = DEBOUNCING;

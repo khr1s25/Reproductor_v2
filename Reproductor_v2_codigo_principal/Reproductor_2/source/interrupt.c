@@ -25,8 +25,3 @@ void Inicializar_pit(){
 	EnableIRQ(PIT_IRQn);
 	PIT_StartTimer(PIT, kPIT_Chnl_0);
 }
-
-void RUN_PIT(){
-	PIT_ClearStatusFlags(PIT, kPIT_Chnl_0, kPIT_TimerFlag);
-	pit_flag = TRUE;
-}
