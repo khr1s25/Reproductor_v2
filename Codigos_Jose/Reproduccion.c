@@ -67,10 +67,48 @@ void delay(void)
     }
 }
 
+void Pause(int  cont)
+{
+  while(1)
+  {
+	  if(/*Funcion del Debounce con validador de tipo para este boton*/==1)
+	  {
+		  contador(cont);
+	  }
+  }
+}
+
+void Stop(int cont)
+{
+	/*Reinicio de las variables del reproductor*/
+	 cont=0;
+	 GPIO_SetPinsOutput(GPIOE, 1u << BOARD_LED_GPIO_PIN_0);
+ 	 GPIO_SetPinsOutput(GPIOE, 1u << BOARD_LED_GPIO_PIN_1);
+	 GPIO_SetPinsOutput(GPIOE, 1u << BOARD_LED_GPIO_PIN_2);
+  while(1)
+  {
+	  if(/*Funcion del Debounce con validador de tipo play*/==1)
+	  {
+		  contador(cont);
+	  }
+  }
+}
+
 void contador(int cont)
 {
 	if(cont == 1)
 	    	{
+	    		if(/*Funcion del Debounce ()*/==1)
+				{
+					if(/*Type_Large()*/==0)
+					{
+						Pause(cont);
+					}
+					else if(/*Type_Large()*/==1)
+					{
+                         Stop(cont);
+					}
+				}
 	    		delay();
 	    		GPIO_PinInit(GPIOE, BOARD_LED_GPIO_PIN_0, &led_config);
 	    		cont++;
@@ -78,26 +116,56 @@ void contador(int cont)
 			else if (cont == 2)
 	    	{
 	    		delay();
-	    		GPIO_PinInit(GPIOE, BOARD_LED_GPIO_PIN_1, &led_config);
+	    		if(/*Funcion del Debounce ()*/==1)
+				{
+					if(/*Type_Large()*/==0)
+					{
+						Pause(cont);
+					}
+					else if(/*Type_Large()*/==1)
+					{
+                         Stop(cont);
+					}
+				}
+				GPIO_PinInit(GPIOE, BOARD_LED_GPIO_PIN_1, &led_config);
 	    		cont++;
 	    	}
 			else if (cont == 3)
-	    	{
-	    		delay();
-	    		GPIO_PinInit(GPIOE, BOARD_LED_GPIO_PIN_2, &led_config);
+	    		if(/*Funcion del Debounce ()*/==1)
+				{
+					if(/*Type_Large()*/==0)
+					{
+						Pause(cont);
+					}
+					else if(/*Type_Large()*/==1)
+					{
+                         Stop(cont);
+					}
+				}
+				GPIO_PinInit(GPIOE, BOARD_LED_GPIO_PIN_2, &led_config);
 	    		cont++;
 	    	}
 			else if (cont == 0)
 	    	{
 	    		delay();
-	    		GPIO_TogglePinsOutput(GPIOE, 1u << BOARD_LED_GPIO_PIN_0);
+	    		if(/*Funcion del Debounce ()*/==1)
+				{
+					if(/*Type_Large()*/==0)
+					{
+						Pause(cont);
+					}
+					else if(/*Type_Large()*/==1)
+					{
+                         Stop(cont);
+					}
+				}
+				GPIO_TogglePinsOutput(GPIOE, 1u << BOARD_LED_GPIO_PIN_0);
 	    		GPIO_TogglePinsOutput(GPIOE, 1u << BOARD_LED_GPIO_PIN_1);
 	    		GPIO_TogglePinsOutput(GPIOE, 1u << BOARD_LED_GPIO_PIN_2);
 	    		cont = 0;
 	    	}
 			else
 			{
-
 	    		cont++;
 	    	}
 	return;
