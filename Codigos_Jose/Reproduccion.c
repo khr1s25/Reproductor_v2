@@ -69,28 +69,25 @@ void delay(void)
 
 void contador(int cont)
 {
-	if(cont == 0)
+	if(cont == 1)
 	    	{
 	    		delay();
 	    		GPIO_PinInit(GPIOE, BOARD_LED_GPIO_PIN_0, &led_config);
-	    		printf("\r\n Led 1 \r\n");
-	    		cont++;
-	    	}
-			else if (cont == 1)
-	    	{
-	    		delay();
-	    		GPIO_PinInit(GPIOE, BOARD_LED_GPIO_PIN_1, &led_config);
-	    		printf("\r\n Led 2 \r\n");
 	    		cont++;
 	    	}
 			else if (cont == 2)
 	    	{
 	    		delay();
-	    		GPIO_PinInit(GPIOE, BOARD_LED_GPIO_PIN_2, &led_config);
-	    		printf("\r\n Led 3 \r\n");
+	    		GPIO_PinInit(GPIOE, BOARD_LED_GPIO_PIN_1, &led_config);
 	    		cont++;
 	    	}
 			else if (cont == 3)
+	    	{
+	    		delay();
+	    		GPIO_PinInit(GPIOE, BOARD_LED_GPIO_PIN_2, &led_config);
+	    		cont++;
+	    	}
+			else if (cont == 0)
 	    	{
 	    		delay();
 	    		GPIO_TogglePinsOutput(GPIOE, 1u << BOARD_LED_GPIO_PIN_0);
@@ -129,6 +126,6 @@ int main(void)
 
     while (1)
     {
-		contador(icont);
+		contador(cont);
     }
 }
