@@ -66,7 +66,7 @@ gpio_pin_config_t led_config = {
 void delay(void)
 {
     volatile uint32_t i = 0;
-    for (i = 0; i < 800000; ++i)
+    for (i = 0; i < 8; ++i)
     {
         __asm("NOP"); /* delay */
     }
@@ -114,13 +114,13 @@ void contador(int cont,int v_debounce)
                          Stop(cont, v_debounce);
 					}
 				}
-	    		delay();
+
 	    		GPIO_PinInit(GPIOE, BOARD_LED_GPIO_PIN_0, &led_config);
 	    		cont++;
 	    	}
 			else if (cont == 2)
 	    	{
-	    		delay();
+
 	    		if(v_debounce>=50)
 	    		{
 	    			if(v_debounce < 100)
@@ -152,7 +152,7 @@ void contador(int cont,int v_debounce)
 	    	}
 			else if (cont == 0)
 	    	{
-	    		delay();
+
 	    		if(v_debounce>=50)
 	    		{
 	    			if(v_debounce < 100)
@@ -174,6 +174,6 @@ void contador(int cont,int v_debounce)
 	    		cont++;
 	    	}
 	return;
-}
+ }
 
 

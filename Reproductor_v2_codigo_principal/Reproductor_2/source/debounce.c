@@ -66,13 +66,16 @@ MACH_STATES next_state = DISABLE;
 /*
  * @brief   Application entry point.
  */
-int Debouncer(int32_t button2){
+int Debouncer(int32_t curr_pressed){
 
+	int32_t button2;
 	int TIME_PRESSED = 0;
 	int contador = 0;
+	do{
+	button2 = GPIO_ReadPinInput(GPIOB, curr_pressed);
 	switch(curr_state){
 	case DISABLE:
-		if(button2==1){
+		if(button2==0){
 			contador = 0;
 			next_state = DEBOUNCE;
 			//output = DISABLE;
@@ -81,14 +84,14 @@ int Debouncer(int32_t button2){
 		break;
 
 	case DEBOUNCE:
-		if(button2==1 && contador < TIME_MAX){
+		if(button2==0 && contador < TIME_MAX){
 			contador = contador +1;
 			TIME_PRESSED = TIME_PRESSED + 1;
 			//output = DISABLE;
 			next_state = DEBOUNCE;
 			curr_state = next_state;
 		}
-		else if(button2=1 && contador >=TIME_MAX){
+		else if(button2==0 && contador==TIME_MAX){
 			//output = ENABLE;
 			next_state = ENABLE;
 			curr_state = next_state;
@@ -102,21 +105,20 @@ int Debouncer(int32_t button2){
 		break;
 
 	case ENABLE:
-		if(button2==0){
+		if(button2==1){
 			contador = 0;
 			//output = ENABLE;
 			next_state = DEBOUNCING;
 			curr_state = next_state;
 		}
 		break;
-
 	case DEBOUNCING:
-		if(button2==1){
+		if(button2==0){
 			//output = ENABLE;
 			next_state = ENABLE;
 			curr_state = next_state;
 		}
-		else if(button2==0 && contador > INIT_STATE){
+		else if(button2==1 && contador > INIT_STATE){
 			contador = contador - 1;
 			//output = ENABLE;
 			next_state = DEBOUNCING;
@@ -129,6 +131,7 @@ int Debouncer(int32_t button2){
 		}
 		break;
 	}
+	}while(curr_state != DISABLE && button2==1);
 	return TIME_PRESSED;
 }
 
