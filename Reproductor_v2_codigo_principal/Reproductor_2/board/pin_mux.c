@@ -41,7 +41,6 @@ BOARD_InitPins:
   - {pin_num: '28', peripheral: UART0, signal: TX, pin_signal: TSI0_CH3/PTA2/UART0_TX/TPM2_CH1}
   - {pin_num: '27', peripheral: UART0, signal: RX, pin_signal: TSI0_CH2/PTA1/UART0_RX/TPM2_CH0}
   - {pin_num: '48', peripheral: GPIOB, signal: 'GPIO, 9', pin_signal: PTB9}
-  - {pin_num: '47', peripheral: GPIOB, signal: 'GPIO, 8', pin_signal: PTB8/EXTRG_IN}
   - {pin_num: '49', peripheral: GPIOB, signal: 'GPIO, 10', pin_signal: PTB10/SPI1_PCS0}
   - {pin_num: '3', peripheral: GPIOE, signal: 'GPIO, 2', pin_signal: PTE2/SPI1_SCK}
   - {pin_num: '4', peripheral: GPIOE, signal: 'GPIO, 3', pin_signal: PTE3/SPI1_MISO/SPI1_MOSI}
@@ -49,6 +48,7 @@ BOARD_InitPins:
   - {pin_num: '73', peripheral: GPIOD, signal: 'GPIO, 0', pin_signal: PTD0/SPI0_PCS0/TPM0_CH0}
   - {pin_num: '75', peripheral: GPIOD, signal: 'GPIO, 2', pin_signal: PTD2/SPI0_MOSI/UART2_RX/TPM0_CH2/SPI0_MISO}
   - {pin_num: '33', peripheral: TPM1, signal: 'CH, 1', pin_signal: PTA13/TPM1_CH1}
+  - {pin_num: '47', peripheral: GPIOB, signal: 'GPIO, 8', pin_signal: PTB8/EXTRG_IN}
  * BE CAREFUL MODIFYING THIS COMMENT - IT IS YAML SETTINGS FOR TOOLS ***********
  */
 /* clang-format on */

@@ -74,24 +74,32 @@ int main(void) {
     	if(pit_flag = TRUE){
 
     		/* FALTA INICIALIZAR BOTONES Y RECIBIRLOS*/
-    		int32_t B1 = GPIO_ReadPinInput(GPIOB,B_1);
-    		int32_t B2 = GPIO_ReadPinInput(GPIOB,B_2);
-    		int32_t B3 = GPIO_ReadPinInput(GPIOB,B_3);
+    		uint32_t B1 = GPIO_ReadPinInput(GPIOB,B_1);
+    		uint32_t B2 = GPIO_ReadPinInput(GPIOB,B_2);
+    		uint32_t B3 = GPIO_ReadPinInput(GPIOB,B_3);
 
-    		printf("%i \n",B1);
+    		/*printf("%i \n",B1);
     		printf("%i \n",B2);
-    		printf("%i \n",B3);
+    		printf("%i \n",B3);*/
 
-    		int DB1 = Debouncer(B1);
-    		int DB2 = Debouncer(B2);
-    		int DB3 = Debouncer(B3);
+    		uint32_t DB1 = 0;
+    		uint32_t DB2 = 0;
+    		uint32_t DB3 = 0;
 
-    		printf("%i \n",DB1);
+    		if(B1==0)
+    		DB1 = Debouncer(B_1);
+    		if(B2==0)
+    		DB2 = Debouncer(B_2);
+    		if(B3==0)
+    		DB3 = Debouncer(B_3);
+
+
+    		/*printf("%i \n",DB1);
     		printf("%i \n",DB2);
-    		printf("%i \n",DB3);
+    		printf("%i \n",DB3);*/
 
-    		contador(0, DB1);
-    		F_NEXT(B2, DB2);
+    		//contador(0, DB1);
+    		//F_NEXT(B2, DB2);
     		/*B_BACK(B3, DB3);  */
     	}
     }
