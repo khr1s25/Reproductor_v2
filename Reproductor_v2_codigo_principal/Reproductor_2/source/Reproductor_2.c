@@ -44,6 +44,7 @@
 #include "foward.h"
 #include "interrupt.h"
 #include "Reproduccion.h"
+#include "Backward.h"
 /* TODO: insert other definitions and declarations here. */
 
 #define FALSE 0
@@ -70,7 +71,7 @@ int main(void) {
 
     PRINTF("Hello World\n");
 
-    for(;;){
+    while(1){
     	if(pit_flag = TRUE){
 
     		/* FALTA INICIALIZAR BOTONES Y RECIBIRLOS*/
@@ -78,41 +79,26 @@ int main(void) {
     		uint32_t B2 = GPIO_ReadPinInput(GPIOB,B_2);
     		uint32_t B3 = GPIO_ReadPinInput(GPIOB,B_3);
 
-    		/*printf("%i \n",B1);
-    		printf("%i \n",B2);
-    		printf("%i \n",B3);*/
-
     		uint32_t DB1 = 0;
     		uint32_t DB2 = 0;
     		uint32_t DB3 = 0;
 
-    		if(B1==0)
+    		if(B1==0){
     		DB1 = Debouncer(B_1);
-    		if(B2==0)
+    		}
+    		if(B2==0){
     		DB2 = Debouncer(B_2);
-    		if(B3==0)
+    		F_NEXT(B2, DB2);
+    		}
+    		if(B3==0){
     		DB3 = Debouncer(B_3);
-
-
-    		/*printf("%i \n",DB1);
-    		printf("%i \n",DB2);
-    		printf("%i \n",DB3);*/
-
-    		//contador(0, DB1);
-    		//F_NEXT(B2, DB2);
+    		backward(0, DB3);
+    		}
+    		contador(0, DB1);
     		/*B_BACK(B3, DB3);  */
     	}
     }
 
-    /* Force the counter to be placed into memory. */
-    volatile static int i = 0 ;
-    /* Enter an infinite loop, just incrementing a counter. */
-    while(1) {
-        i++ ;
-        /* 'Dummy' NOP to allow source level single stepping of
-            tight while() loop */
-        __asm volatile ("nop");
-    }
     return 0 ;
 }
 

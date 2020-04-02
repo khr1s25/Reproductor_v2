@@ -16,8 +16,8 @@ typedef enum {
 	song_4
 }PLAYLIST;
 
-#define LED_1	2
-#define LED_2	3
+#define LED_1	3
+#define LED_2	2
 
 PLAYLIST curr_song = song_1;
 PLAYLIST next_song = song_1;
@@ -42,7 +42,7 @@ void F_NEXT(int32_t button, int time_pressed){
 
 	if(time_pressed > 50){
 		my_foward();
-		PIT_SetTimerPeriod(PIT, kPIT_Chnl_0, USEC_TO_COUNT(100000U, CLOCK_GetFreq(kCLOCK_BusClk)));
+		PIT_SetTimerPeriod(PIT, kPIT_Chnl_0, USEC_TO_COUNT(1000U, CLOCK_GetFreq(kCLOCK_BusClk)));
 	}
 	else{
 		my_next(curr_song, button);
@@ -52,10 +52,10 @@ void F_NEXT(int32_t button, int time_pressed){
 void my_next(PLAYLIST curr_song, int32_t button){
 	switch(curr_song){
 	case song_1:
-		if(button==1){
+		if(button==0){
 
-			GPIO_WritePinOutput(GPIOD, LED_1, 0);
-			GPIO_WritePinOutput(GPIOD, LED_2, 0);
+			GPIO_SetPinsOutput(GPIOD, 1u << LED_1);
+			GPIO_SetPinsOutput(GPIOD, 1u << LED_2);
 
 			next_song = song_2;
 			curr_song = next_song;
@@ -63,10 +63,9 @@ void my_next(PLAYLIST curr_song, int32_t button){
 		break;
 
 	case song_2:
-		if(button==1){
+		if(button==0){
 
-			GPIO_WritePinOutput(GPIOD, LED_1, true);
-			GPIO_WritePinOutput(GPIOD, LED_2, false);
+			GPIO_TogglePinsOutput(GPIOD, 1u << LED_1);
 
 			next_song = song_3;
 			curr_song = next_song;
@@ -74,10 +73,10 @@ void my_next(PLAYLIST curr_song, int32_t button){
 		break;
 
 	case song_3:
-		if(button==1){
+		if(button==0){
 
-			GPIO_WritePinOutput(GPIOD, LED_1, false);
-			GPIO_WritePinOutput(GPIOD, LED_2, true);
+			GPIO_TogglePinsOutput(GPIOD, 1u << LED_1);
+			GPIO_TogglePinsOutput(GPIOD, 1u << LED_2);
 
 			next_song = song_3;
 			curr_song = next_song;
@@ -85,10 +84,9 @@ void my_next(PLAYLIST curr_song, int32_t button){
 		break;
 
 	case song_4:
-		if(button==1){
+		if(button==0){
 
 			GPIO_WritePinOutput(GPIOD, LED_1, false);
-			GPIO_WritePinOutput(GPIOD, LED_2, false);
 
 			next_song = song_1;
 			curr_song = next_song;

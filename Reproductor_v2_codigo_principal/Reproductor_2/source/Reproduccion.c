@@ -63,14 +63,6 @@ gpio_pin_config_t led_config = {
 /*******************************************************************************
  * Code
  ******************************************************************************/
-void delay(void)
-{
-    volatile uint32_t i = 0;
-    for (i = 0; i < 8; ++i)
-    {
-        __asm("NOP"); /* delay */
-    }
-}
 
 void Pause(int  cont, int v_debounce)
 {
@@ -99,7 +91,7 @@ void Stop(int cont, int v_debounce)
   }
 }
 
-void contador(int cont,int v_debounce)
+void contador(int cont, int v_debounce)
 {
 	if(cont == 1)
 	    	{
@@ -171,7 +163,7 @@ void contador(int cont,int v_debounce)
 	    	}
 			else
 			{
-	    		cont++;
+	    		cont = cont + 1 ;
 	    	}
 	return;
  }
