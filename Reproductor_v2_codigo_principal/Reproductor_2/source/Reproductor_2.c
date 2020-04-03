@@ -45,6 +45,7 @@
 #include "interrupt.h"
 #include "Reproduccion.h"
 #include "Backward.h"
+#include "volume.h"
 /* TODO: insert other definitions and declarations here. */
 
 #define FALSE 0
@@ -68,6 +69,7 @@ int main(void) {
     BOARD_InitDebugConsole();
 
     Inicializar_pit();
+    volume_init();
 
     PRINTF("Hello World\n");
 
