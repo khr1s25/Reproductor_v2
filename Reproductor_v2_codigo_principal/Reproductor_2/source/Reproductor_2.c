@@ -79,8 +79,6 @@ int main(void) {
     Inicializar_pit();
     volume_init();
 
-    PRINTF("Hello World\n");
-
     while(1){
     	if(pit_flag == TRUE){
 
