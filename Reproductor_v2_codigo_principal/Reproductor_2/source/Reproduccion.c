@@ -70,7 +70,7 @@ void Pause(int  cont, int v_debounce)
   {
 	  if(v_debounce < 50)
 	  {
-		  contador(cont);
+		  contador(cont, v_debounce);
 	  }
   }
 }

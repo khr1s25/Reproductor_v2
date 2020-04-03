@@ -54,8 +54,16 @@
 #define B_2 9u
 #define B_3 10u
 
-unsigned char pit_flag = FALSE;
+typedef enum {
+   	song_1_M,
+   	song_2_M,
+   	song_3_M,
+  	song_4_M
+}PLAYLIST;
 
+unsigned char pit_flag = FALSE;
+PLAYLIST curr_song = song_1_M;
+PLAYLIST next_song = song_1_M;
 /*
  * @brief   Application entry point.
  */
@@ -74,7 +82,7 @@ int main(void) {
     PRINTF("Hello World\n");
 
     while(1){
-    	if(pit_flag = TRUE){
+    	if(pit_flag == TRUE){
 
     		pit_flag = FALSE;
 
@@ -92,11 +100,11 @@ int main(void) {
     		}
     		if(B2==0){
     		DB2 = Debouncer(B_2);
-    		F_NEXT(B2, DB2);
+    		curr_song = F_NEXT(B2, DB2, curr_song);
     		}
     		if(B3==0){
     		DB3 = Debouncer(B_3);
-    		backward(0, DB3);
+    		B_BACK(0, DB3, curr_song, B3);
     		}
     		contador(0, DB1);
     	}

@@ -8,6 +8,13 @@
 #ifndef BACKWARD_H_
 #define BACKWARD_H_
 
-extern void backward(int,int);
+typedef enum {
+	song_1_B,
+	song_2_B,
+	song_3_B,
+	song_4_B
+}PLAYLIST_B;
+
+extern uint32_t B_BACK(int,int,PLAYLIST_B,uint32_t);
 
 #endif /* BACKWARD_H_ */

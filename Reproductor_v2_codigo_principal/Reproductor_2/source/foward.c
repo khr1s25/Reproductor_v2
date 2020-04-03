@@ -9,21 +9,16 @@
 #include "fsl_gpio.h"
 #include "fsl_pit.h"
 
-typedef enum {
-	song_1,
-	song_2,
-	song_3,
-	song_4
-}PLAYLIST;
 
 #define LED_1	3
 #define LED_2	2
 
-PLAYLIST curr_song = song_1;
-PLAYLIST next_song = song_1;
+
+uint32_t my_next(PLAYLIST_F, uint32_t);
+void my_foward();
 
 
-void F_NEXT(int32_t button, int time_pressed){
+uint32_t F_NEXT(uint32_t button, uint32_t time_pressed, PLAYLIST_F curr_song){
 	///PLAYLIST canciones;
 	CLOCK_EnableClock(kCLOCK_PortD);
 
@@ -43,56 +38,59 @@ void F_NEXT(int32_t button, int time_pressed){
 	if(time_pressed > 50){
 		my_foward();
 		PIT_SetTimerPeriod(PIT, kPIT_Chnl_0, USEC_TO_COUNT(1000U, CLOCK_GetFreq(kCLOCK_BusClk)));
+		return curr_song;
 	}
 	else{
-		my_next(curr_song, button);
+		return my_next(curr_song, button);
 	}
 }
 
-void my_next(PLAYLIST curr_song, int32_t button){
+uint32_t my_next(PLAYLIST_F curr_song, uint32_t button){
+	PLAYLIST_F next_song = curr_song;
 	switch(curr_song){
-	case song_1:
+	case song_1_F:
 		if(button==0){
 
 			GPIO_SetPinsOutput(GPIOD, 1u << LED_1);
 			GPIO_SetPinsOutput(GPIOD, 1u << LED_2);
 
-			next_song = song_2;
+			next_song = song_2_F;
 			curr_song = next_song;
 		}
 		break;
 
-	case song_2:
+	case song_2_F:
 		if(button==0){
 
 			GPIO_TogglePinsOutput(GPIOD, 1u << LED_1);
 
-			next_song = song_3;
+			next_song = song_3_F;
 			curr_song = next_song;
 		}
 		break;
 
-	case song_3:
+	case song_3_F:
 		if(button==0){
 
 			GPIO_TogglePinsOutput(GPIOD, 1u << LED_1);
 			GPIO_TogglePinsOutput(GPIOD, 1u << LED_2);
 
-			next_song = song_3;
+			next_song = song_4_F;
 			curr_song = next_song;
 		}
 		break;
 
-	case song_4:
+	case song_4_F:
 		if(button==0){
 
 			GPIO_WritePinOutput(GPIOD, LED_1, false);
 
-			next_song = song_1;
+			next_song = song_1_F;
 			curr_song = next_song;
 		}
 		break;
 	}
+	return curr_song;
 }
 
 void my_foward(){

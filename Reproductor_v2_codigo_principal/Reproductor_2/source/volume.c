@@ -1,11 +1,14 @@
 #include "volume.h"
+#include "fsl_tpm.h"
+#include "pin_mux.h"
+#include "fsl_port.h"
 
 #define VOLUME_LED 0u
 #define VOLUME_READ 13u
 #define PORCENTAJE_CICLOS 10u
 
 void volume_init(){
-	PORT_SetPinMux(GPIOA, VOLUME_READ, kPORT_MuxAlt3);
+	PORT_SetPinMux(PORTA, VOLUME_READ, kPORT_MuxAlt3);
 	CLOCK_EnableClock(kCLOCK_PortA);
 
 	CLOCK_SetTpmClock(1u);
