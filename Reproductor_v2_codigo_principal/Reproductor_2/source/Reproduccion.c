@@ -82,13 +82,7 @@ void Stop(int cont, int v_debounce)
 	 GPIO_SetPinsOutput(GPIOE, 1u << BOARD_LED_GPIO_PIN_0);
  	 GPIO_SetPinsOutput(GPIOE, 1u << BOARD_LED_GPIO_PIN_1);
 	 GPIO_SetPinsOutput(GPIOE, 1u << BOARD_LED_GPIO_PIN_2);
-  while(1)
-  {
-	  if(v_debounce < 50)
-	  {
-		  contador(cont);
-	  }
-  }
+
 }
 
 void contador(int cont, int v_debounce)

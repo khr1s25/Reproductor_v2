@@ -74,6 +74,8 @@ int main(void) {
     while(1){
     	if(pit_flag = TRUE){
 
+    		pit_flag = FALSE;
+
     		/* FALTA INICIALIZAR BOTONES Y RECIBIRLOS*/
     		uint32_t B1 = GPIO_ReadPinInput(GPIOB,B_1);
     		uint32_t B2 = GPIO_ReadPinInput(GPIOB,B_2);
@@ -95,7 +97,6 @@ int main(void) {
     		backward(0, DB3);
     		}
     		contador(0, DB1);
-    		/*B_BACK(B3, DB3);  */
     	}
     }
 
